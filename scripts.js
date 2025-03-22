@@ -100,6 +100,20 @@ const renderBooks = (bookList, container, clear = false, pageNumber =0) => {
 
         newItems.appendChild(element)
     }
+// Function to populate dropdowns
+
+const populateDropdown = (dropdown, data, defaultText) => {
+    populateDropdown.innerHTML = '';
+    const firstOption = createElement("option", {value: "any"}, defaultText);
+    dropdown.appendChild(firstOption);
+
+    Object.entries(data).forEach(([id, name]) => {
+        const option = createElement("option", { value: id }, name);
+        dropdown.appendChild(option);
+
+    });
+
+};
 
     document.querySelector('[data-list-items]').appendChild(newItems)
     document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
