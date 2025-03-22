@@ -175,8 +175,13 @@ const filterBooks = (filter) => {
     });
 };
 
-document.querySelector('[data-list-button]').addEventListener('click', () => {
-    const fragment = document.createDocumentFragment()
+// Function to load more books
+
+const loadMoreBooks = () => { 
+    page += 1;
+    renderBooks(matches, document.querySelector("[data-list-items]"),false,page);
+};
+
 
     for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
         const element = document.createElement('button')
