@@ -56,17 +56,30 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
         }
     }
 
-    page = 1;
-    matches = result
+const renderBooks = (bookList, container, clear = false, pageNumber =0) => {
+    if (clear) container.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
-    if (result.length < 1) {
-        document.querySelector('[data-list-message]').classList.add('list__message_show')
-    } else {
-        document.querySelector('[data-list-message]').classList.remove('list__message_show')
-    }
 
-    document.querySelector('[data-list-items]').innerHTML = ''
-    const newItems = document.createDocumentFragment()
+    bookList.slice(pageNumber * BOOKS_PER_PAGE, (pageNumber + 1) * BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+        const bookElement = createElement("button", { class: "preview", "data-preview": id },`
+            <img class="preview__image" src="${image}" />
+            <div class="preview__info">
+                <h3 class="preview__title">${title}</h3>
+                <div class="preview__author">${authors[author]}
+            </div>`);
+
+            fragment.appendChild(bookElement);
+    });
+
+    container.appendChild(fragment);
+// document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
+// document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
+
+// document.querySelector('[data-list-button]').innerHTML = `
+//     <span>Show more</span>
+//     <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+// `  
 
     for (const { author, id, image, title } of result.slice(0, BOOKS_PER_PAGE)) {
         const element = document.createElement('button')
