@@ -33,28 +33,10 @@ const createElement = (tag, attributes,innerHTML='') => {
 //         </div>
 //     `
 
-document.querySelector('[data-search-form]').addEventListener('submit', (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const filters = Object.fromEntries(formData)
-    const result = []
+//     starting.appendChild(element)
+// }
 
-    for (const book of books) {
-        let genreMatch = filters.genre === 'any'
-
-        for (const singleGenre of book.genres) {
-            if (genreMatch) break;
-            if (singleGenre === filters.genre) { genreMatch = true }
-        }
-
-        if (
-            (filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase())) && 
-            (filters.author === 'any' || book.author === filters.author) && 
-            genreMatch
-        ) {
-            result.push(book)
-        }
-    }
+//Function to render books
 
 const renderBooks = (bookList, container, clear = false, pageNumber =0) => {
     if (clear) container.innerHTML = '';
@@ -81,25 +63,46 @@ const renderBooks = (bookList, container, clear = false, pageNumber =0) => {
 //     <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
 // `  
 
-    for (const { author, id, image, title } of result.slice(0, BOOKS_PER_PAGE)) {
-        const element = document.createElement('button')
-        element.classList = 'preview'
-        element.setAttribute('data-preview', id)
-    
-        element.innerHTML = `
-            <img
-                class="preview__image"
-                src="${image}"
-            />
-            
-            <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${authors[author]}</div>
-            </div>
-        `
+// document.querySelector('[data-list-button]').addEventListener('click', () => {
+//     const fragment = document.createDocumentFragment()
 
-        newItems.appendChild(element)
-    }
+//     for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
+//         const element = document.createElement('button')
+//         element.classList = 'preview'
+//         element.setAttribute('data-preview', id)
+    
+//         element.innerHTML = `
+//             <img
+//                 class="preview__image"
+//                 src="${image}"
+//             />
+            
+//             <div class="preview__info">
+//                 <h3 class="preview__title">${title}</h3>
+//                 <div class="preview__author">${authors[author]}</div>
+//             </div>
+//         `
+
+//         fragment.appendChild(element)
+//     }
+
+//     document.querySelector('[data-list-items]').appendChild(fragment)
+//     page += 1
+// })
+
+//     document.querySelector('[data-list-items]').appendChild(newItems)
+//     document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
+
+//     document.querySelector('[data-list-button]').innerHTML = `
+//         <span>Show more</span>
+//         <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+//     `
+
+//     window.scrollTo({top: 0, behavior: 'smooth'});
+//     document.querySelector('[data-search-overlay]').open = false
+// })
+
+
 // Function to populate dropdowns
 
 const populateDropdown = (dropdown, data, defaultText) => {
@@ -115,13 +118,7 @@ const populateDropdown = (dropdown, data, defaultText) => {
 
 };
 
-    document.querySelector('[data-list-items]').appendChild(newItems)
-    document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
 
-    document.querySelector('[data-list-button]').innerHTML = `
-        <span>Show more</span>
-        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-    `
 //Function to toggle modals
 
 const toggleModal = (selector, isOpen) => {
@@ -385,4 +382,4 @@ document.querySelector("[data-list-items]").addEventListener("click", (event) =>
         document.querySelector("[data-list-subtitle]").innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
         document.querySelector("[data-list-description]").innerText = active.description;
     }
-})
+});
