@@ -146,9 +146,34 @@ const applyTheme = (theme) => {
 };
 
 
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    document.querySelector('[data-search-overlay]').open = false
-})
+//     for (const book of books) {
+//         let genreMatch = filters.genre === 'any'
+
+//         for (const singleGenre of book.genres) {
+//             if (genreMatch) break;
+//             if (singleGenre === filters.genre) { genreMatch = true }
+//         }
+
+//         if (
+//             (filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase())) && 
+//             (filters.author === 'any' || book.author === filters.author) && 
+//             genreMatch
+//         ) {
+//             result.push(book)
+//         }
+//     }
+
+// Function to filter books
+
+const filterBooks = (filter) => {
+    return books.filter(book =>{
+        let genreMatch = filter.genre === "any" || book.genres.includes(filter.genre);
+        let titleMatch = filter.title.trim() === "" || book.title.toLowerCase().includes(filters.title.toLowerCase());
+        let authorMatch = filter.author == "any" || book.author === filter.author;
+        return genreMatch && titleMatch && authorMatch;
+
+    });
+};
 
 document.querySelector('[data-list-button]').addEventListener('click', () => {
     const fragment = document.createDocumentFragment()
