@@ -102,6 +102,15 @@ const renderBooks = (bookList, container, clear = false, pageNumber =0) => {
 //     document.querySelector('[data-search-overlay]').open = false
 // })
 
+     // Update 'Show More' button
+
+     const showMoreButton = document.querySelector('[data-list-button]');
+     showMoreButton.disabled = matches.length <= (pageNumber + 1) * BOOKS_PER_PAGE;
+     showMoreButton.innerHTML = `
+         <span>Show more</span>
+         <span class="list__remaining">($ ={Math.max(matches.length - ((pageNumber + 1)* BOOKS_PER_PAGE), 0)})</span>`;
+};
+
 
 // Function to populate dropdowns
 
