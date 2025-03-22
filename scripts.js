@@ -122,6 +122,29 @@ const populateDropdown = (dropdown, data, defaultText) => {
         <span>Show more</span>
         <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
     `
+//Function to toggle modals
+
+const toggleModal = (selector, isOpen) => {
+    document.querySelector(selector).open = isOpen;
+};
+ 
+// if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+//     document.querySelector('[data-settings-theme]').value = 'night'
+//     document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
+//     document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+// } else {
+//     document.querySelector('[data-settings-theme]').value = 'day'
+//     document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
+//     document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+// }
+
+// Function to apply the Theme
+
+const applyTheme = (theme) => {
+    document.documentElement.style.setProperty("--color-dark", theme === "night" ? "255, 255, 255" : "10, 10, 20");
+    document.documentElement.style.setProperty("--color-light", theme === "night" ? "10, 10, 20" : "255, 255, 255");
+};
+
 
     window.scrollTo({top: 0, behavior: 'smooth'});
     document.querySelector('[data-search-overlay]').open = false
