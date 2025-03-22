@@ -182,6 +182,15 @@ const loadMoreBooks = () => {
     renderBooks(matches, document.querySelector("[data-list-items]"),false,page);
 };
 
+// Initial Render
+
+const listItemsContainer = document.querySelector("[data-list-items]");
+renderBooks(matches, listItemsContainer);
+populateDropdown(document.querySelector("[data-search-genres]"), genres, "All Genres");
+populateDropdown(document.querySelector("[data-search-authors]"), authors, "All Authors");
+applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? "night" : "day");
+
+
 
     for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
         const element = document.createElement('button')
